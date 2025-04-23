@@ -57,6 +57,7 @@ export const OrderHistory = () => {
       <div className="container">
         <h1>Historial de Pedidos</h1>
         <p>Aquí puedes ver el historial de tus pedidos anteriores.</p>
+        <br/>
         {loading ? (
           <p>Cargando datos...</p>
         ) : data.length > 0 ? (

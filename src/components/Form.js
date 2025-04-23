@@ -23,6 +23,7 @@ export const DynamicForm = ({ fields, onSubmit, buttonText = "Submit" }) => {
           {field.text && <Form.Text className="text-muted">{field.text}</Form.Text>}
         </Form.Group>
       ))}
+      <br/>
       <Button variant="primary" type="submit">
         {buttonText}
       </Button>

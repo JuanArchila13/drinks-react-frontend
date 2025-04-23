@@ -70,8 +70,11 @@ const handleFormSubmit = async (formData) => {
             }
         }
     } catch (error) {
-        console.error("Error al enviar el formulario:", error);
-        alert("Hubo un error al enviar el formulario");
+        SwalAlert({
+            type: "error",
+            title: "Error",
+            text: "Hubo un error al enviar el formulario",
+        });
     }
 };
 
@@ -80,8 +83,8 @@ export const Home = () => {
         <div className="container">
             <h1>Bienvenido a la tienda de bebidas</h1>
             <p>Ingresa la cantidad de la bebida que deseas comprar y da click en el botón comprar al lado de cada bebida.</p>
-            <br></br>
-            <DynamicForm fields={fields} onSubmit={handleFormSubmit}/>
+            <br/>
+            <DynamicForm fields={fields} onSubmit={handleFormSubmit} buttonText="Pedir Bebida"/>
         </div>
     );
 };
