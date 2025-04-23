@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "../components/Table";
 import { API_URLS } from "../apiURLs";
+import { SwalAlert } from "../components/SweetAlert";
 
 const columns = [
     {
@@ -36,14 +37,22 @@ export const OrderHistory = () => {
             try {
                 const response = await fetch(API_URLS.ORDERS); // Cambia la URL según tu backend
                 if (!response.ok) {
-                    throw new Error("Error al obtener los datos");
+                    SwalAlert({
+                        type: "error",
+                        title: "Error",
+                        text: "No se pudo cargar el historial de pedidos.",
+                    });
                 }
                 
                 const result = await response.json();
-                console.log(result); // Verifica la estructura de los datos
                 setData(result);
             } catch (error) {
-                console.error("Error al cargar los datos:", error);
+                SwalAlert({
+                    type: "error",
+                    title: "Error",
+                    text: "El servicio de historial de pedidos no está disponible.",
+                    footer: "Por favor, inténtalo más tarde.",
+                });
             } finally {
                 setLoading(false);
             }
