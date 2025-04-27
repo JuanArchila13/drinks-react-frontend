@@ -13,7 +13,7 @@ const columns = [
     {
         name: 'Nombre',
         sortable: true,
-        selector: (row) => row.drinkId,
+        selector: (row) => row.drinkName,
     },
     {
         name: 'Cantidad',

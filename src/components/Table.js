@@ -12,19 +12,21 @@ export const Table = ({columns, data, title}) => {
                 backgroundColor: '#f2f2f2', // Color gris claro
                 fontWeight: 'bold',
                 fontSize: '16px',
+                textAlign: 'center',
             },
         },
         cells: {
             style: {
                 fontSize: '14px',
                 padding: '10px',
+                textAlign: 'center',
             },
         },
     };
 
     const handleChange = (e) => {
         const filteredData = data.filter((item) => {
-            return item.name.toLowerCase().includes(e.target.value.toLowerCase())
+            return item.drinkName.toLowerCase().includes(e.target.value.toLowerCase())
         })
         setRecords(filteredData)       
     }

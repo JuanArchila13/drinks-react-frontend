@@ -23,51 +23,32 @@ const fields = [
 
 const handleFormSubmit = async (formData) => {
     try {
-        if (formData.name === "") {
-            SwalAlert({
-                type: "error",
-                title: "Error",
-                text: "El nombre de bebida no puede estar vacío.",
-                footer: "Por favor, ingresa un nombre de bebida que no este vacío.",
-            });
-        }
+        const response = await fetch(API_URLS.ORDERS, { 
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        });
 
-        if (formData.size <= 0) {
-            SwalAlert({
-                type: "error",
-                title: "Error",
-                text: "La cantidad debe ser mayor a 0.",
-                footer: "Por favor, ingresa una cantidad válida.",
-            });
-        }
+        const result = await response.json();
 
-        if (formData.name !== "" && formData.size > 0) {
-            const response = await fetch(API_URLS.ORDERS, { // Cambia la URL por la de tu backend
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-            });
-    
-            if (!response.ok) {
-                if (response.status === 400) {
-                    SwalAlert({
-                        type: "error",
-                        title: "Error",
-                        text: "El nombre de bebida ingresado no existe.",
-                        footer: "Por favor, verifica los datos ingresados.",
-                    });
-                }
-            }else{
-                const result = await response.json();
+        if (!response.ok) {    
+            if (response.status === 400) {
                 SwalAlert({
-                    type: "success",
-                    title: "Éxito",
-                    text: "Pedido realizado con éxito.",
-                    footer: `ID de pedido: ${result.orderId}`,
+                    type: "error",
+                    title: "Error",
+                    text: result.message,
+                    footer: "Por favor, verifica los datos ingresados.",
                 });
             }
+        }else{
+            SwalAlert({
+                type: "success",
+                title: "Éxito",
+                text: "Pedido realizado con éxito.",
+                footer: `ID de pedido: ${result.orderId}`,
+            });
         }
     } catch (error) {
         SwalAlert({
